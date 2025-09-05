@@ -8,6 +8,11 @@ import { Block } from './types'
 const HeroBlock = dynamic(() => import('./hero/HeroBlock'))
 const FAQBlock = dynamic(() => import('./faq/FAQBlock'))
 const FormBlock = dynamic(() => import('./form/FormBlock'))
+const BenefitsBlock = dynamic(() => import('./benefits/BenefitsBlock'))
+const ComparisonBlock = dynamic(() => import('./comparison/ComparisonBlock'))
+const TestimonialsBlock = dynamic(() => import('./testimonials/TestimonialsBlock'))
+const ProcessBlock = dynamic(() => import('./process/ProcessBlock'))
+const UrgencyBlock = dynamic(() => import('./urgency/UrgencyBlock'))
 
 // Placeholder components for other blocks
 const PlaceholderBlock = ({ block }: { block: Block }) => (
@@ -71,9 +76,23 @@ export default function BlockRenderer({ block, editable = false, onEdit }: Block
         />
       )
     
+    case 'benefits':
+      return <BenefitsBlock block={block as any} />
+    
+    case 'comparison':
+      return <ComparisonBlock block={block as any} />
+    
+    case 'testimonials':
+      return <TestimonialsBlock block={block as any} />
+    
+    case 'process':
+      return <ProcessBlock block={block as any} />
+    
+    case 'urgency':
+      return <UrgencyBlock block={block as any} />
+    
     // Placeholder for other block types
     case 'features':
-    case 'comparison':
     case 'reviews':
     case 'cta':
     case 'pricing':
