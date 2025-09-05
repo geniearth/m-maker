@@ -16,9 +16,13 @@ interface KakaoPixelProps {
 
 export default function KakaoPixel({ pixelId }: KakaoPixelProps) {
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.kakaoPixel) {
-      // 페이지뷰 이벤트
-      window.kakaoPixel(pixelId).pageView()
+    if (typeof window !== 'undefined' && window.kakaoPixel && pixelId) {
+      // 페이지뷰 이벤트 - SDK 로드 후 실행
+      try {
+        window.kakaoPixel(pixelId, 'pageView')
+      } catch (error) {
+        console.error('Kakao Pixel pageView error:', error)
+      }
     }
   }, [pixelId])
 
@@ -37,7 +41,7 @@ export default function KakaoPixel({ pixelId }: KakaoPixelProps) {
           n.queue=[];t=b.createElement(e);t.async=!0;
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window,document,'script','//t1.kakaocdn.net/adfit/static/kp.js');
-          kakaoPixel('${pixelId}').pageView();
+          kakaoPixel('${pixelId}', 'pageView');
         `,
       }}
     />
@@ -58,7 +62,11 @@ export const kakaoEvent = (pixelId: string, eventName: string, tag?: string) => 
 // 리드 완료 이벤트
 export const trackKakaoLead = (pixelId: string) => {
   if (typeof window !== 'undefined' && window.kakaoPixel) {
-    window.kakaoPixel(pixelId).completeRegistration()
+    try {
+      window.kakaoPixel(pixelId, 'completeRegistration')
+    } catch (error) {
+      console.error('Kakao Pixel completeRegistration error:', error)
+    }
   }
 }
 
@@ -69,36 +77,52 @@ export const trackKakaoPurchase = (pixelId: string, params?: {
   products?: any[]
 }) => {
   if (typeof window !== 'undefined' && window.kakaoPixel) {
-    window.kakaoPixel(pixelId).purchase({
-      total_price: params?.total_price || 0,
-      currency: params?.currency || 'KRW',
-      products: params?.products || [],
-    })
+    try {
+      window.kakaoPixel(pixelId, 'purchase', {
+        total_price: params?.total_price || 0,
+        currency: params?.currency || 'KRW',
+        products: params?.products || [],
+      })
+    } catch (error) {
+      console.error('Kakao Pixel purchase error:', error)
+    }
   }
 }
 
 // 장바구니 추가 (폼 시작으로 매핑)
 export const trackKakaoAddToCart = (pixelId: string) => {
   if (typeof window !== 'undefined' && window.kakaoPixel) {
-    window.kakaoPixel(pixelId).addToCart()
+    try {
+      window.kakaoPixel(pixelId, 'addToCart')
+    } catch (error) {
+      console.error('Kakao Pixel addToCart error:', error)
+    }
   }
 }
 
 // 콘텐츠 조회
 export const trackKakaoViewContent = (pixelId: string, contentId?: string) => {
   if (typeof window !== 'undefined' && window.kakaoPixel) {
-    window.kakaoPixel(pixelId).viewContent({
-      id: contentId || 'landing_page',
-    })
+    try {
+      window.kakaoPixel(pixelId, 'viewContent', {
+        id: contentId || 'landing_page',
+      })
+    } catch (error) {
+      console.error('Kakao Pixel viewContent error:', error)
+    }
   }
 }
 
 // 검색 이벤트
 export const trackKakaoSearch = (pixelId: string, keyword?: string) => {
   if (typeof window !== 'undefined' && window.kakaoPixel) {
-    window.kakaoPixel(pixelId).search({
-      keyword: keyword || '',
-    })
+    try {
+      window.kakaoPixel(pixelId, 'search', {
+        keyword: keyword || '',
+      })
+    } catch (error) {
+      console.error('Kakao Pixel search error:', error)
+    }
   }
 }
 

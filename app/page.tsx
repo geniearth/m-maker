@@ -19,14 +19,14 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/admin/dashboard"
+                href="/dashboard"
                 className="inline-flex items-center px-6 py-3 bg-white text-primary-700 font-semibold rounded-lg hover:bg-primary-50 transition-colors"
               >
                 관리자 대시보드
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
-                href="/editor/builder"
+                href="/editor/new"
                 className="inline-flex items-center px-6 py-3 bg-primary-700 text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors border border-primary-500"
               >
                 페이지 빌더 시작
